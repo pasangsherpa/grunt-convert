@@ -96,7 +96,7 @@
           }
 
           if (options.flatten && options.root && options.key) {
-            result = _.object(_.map(result[options.root][options.key], _.values));
+            result = _.invert(_.object(_.map(result[options.root][options.key], _.values)));
           }
 
           data = JSON.stringify(result, null, options.indent);
