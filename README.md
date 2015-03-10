@@ -150,6 +150,9 @@ grunt.initConfig({
   convert: {
     options: {
       explicitArray: false,
+      flatten: true,
+      root: 'root',
+      key: 'test'
     },
 	xml2json: {
 		files: [

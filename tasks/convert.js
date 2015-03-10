@@ -16,7 +16,8 @@
   var csv = require('csv');
   var fs = require('fs');
   var async = require('async');
-
+  var _ = require('lodash');
+  
   grunt.registerMultiTask('convert', 'Convert to or from JSON, YAML, XML, PLIST or CSV', function() {
 
     //Tell grunt that this is an async task
@@ -93,6 +94,11 @@
           if (err) {
             grunt.fail.warn('File ' + f.dest.cyan + ' parsing errors: ' + err);
           }
+
+          if (options.flatten && options.root && options.key) {
+            result = _.object(_.map(result[options.root][options.key], _.values));
+          }
+
           data = JSON.stringify(result, null, options.indent);
           grunt.file.write(f.dest, data);
           finish();
@@ -101,12 +107,7 @@
 
       } else if (srcExt === '.yml' || srcExt === '.yaml') {
 
-        try {
-          data = JSON.stringify(YAML.load(f.src[0]), null, options.indent);
-        }
-        catch (e) {
-          grunt.fail.warn('File ' + f.dest.cyan + ' parsing error: ' + e.message);
-        }
+        data = JSON.stringify(YAML.load(f.src[0]), null, options.indent);
 
       } else if (srcExt === '.plist') {
 
