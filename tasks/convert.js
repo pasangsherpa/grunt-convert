@@ -136,10 +136,14 @@
         data = toXML(JSON.parse(data), options.xml);
         data = (options.pretty) ? require('pretty-data').pd.xml(data) : data;
 
-      } else if (destExt === '.yml' || destExt === '.yaml') {
+      }  else if (srcExt === '.yml' || srcExt === '.yaml') {
 
-        data = YAML.stringify(JSON.parse(data), options.inline, options.indent);
-        grunt.file.write(f.dest, data);
+        try {
+          data = JSON.stringify(YAML.load(f.src[0]), null, options.indent);
+        }
+        catch (e) {
+          grunt.fail.warn('File ' + f.dest.cyan + ' parsing error: ' + e.message);
+        }
 
       } else if (destExt === '.plist') {
 
