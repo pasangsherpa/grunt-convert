@@ -1,7 +1,7 @@
 {
   "name": "grunt-convert",
   "description": "Convert between XML, JSON and YAML, from one format to another.",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "homepage": "https://github.com/pasangsherpa/grunt-convert",
   "repository": {
     "type": "git",
